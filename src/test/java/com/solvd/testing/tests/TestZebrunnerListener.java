@@ -5,23 +5,36 @@ import org.testng.Assert;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
-@Listeners (ZebrunnerListener.class)
-public class TestZebrunnerListener
-{
+@Listeners(ZebrunnerListener.class)
+public class TestZebrunnerListener {
     @Test
-    public void examplePass () {
+    public void examplePass() {
         Assert.assertEquals("", "");
     }
 
     @Test
-    public void exampleFail () {
+    public void exampleFail() {
         Assert.assertEquals("", "s");
     }
 
     //This test will be skipped
-    @Test(dependsOnMethods={"exampleFail"})
+    @Test(dependsOnMethods = {"exampleFail"})
     public void sampleSkipTest() {
         Assert.assertEquals("", "");
+    }
+
+    @Test(timeOut = 1000)
+    public void failOutOfTimeTest() {
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println("Out of time method");
+    }
+    @Test(dependsOnMethods = "failOutOfTimeTest")
+    public void testForSkip() {
+        System.out.println("I am the Skipped method");
     }
 
 }
