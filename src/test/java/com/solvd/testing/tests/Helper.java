@@ -1,3 +1,5 @@
+package com.solvd.testing.tests;
+
 import org.testng.ITestResult;
 
 import java.text.SimpleDateFormat;
