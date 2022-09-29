@@ -1,3 +1,5 @@
+package com.solvd.testing.tests;
+
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
