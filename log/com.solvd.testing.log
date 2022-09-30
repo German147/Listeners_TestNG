@@ -1,0 +1,4 @@
+2022-09-29 19:51:48,307 INFO c.s.t.t.Test1 [main] I am form logger
+2022-09-29 19:52:20,717 INFO c.s.t.t.Test1 [main] I am form logger
+2022-09-29 21:58:10,106 INFO c.s.t.t.BaseTests [main] Opening remote driver
+2022-09-29 22:41:43,176 INFO c.s.t.t.BaseTests [main] Opening remote driver
