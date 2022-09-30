@@ -15,7 +15,7 @@ public class RestApiWrapper {
 
     private static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
-    private static OkHttpClient client = new OkHttpClient();
+    private static final OkHttpClient client = new OkHttpClient();
 
     /**
      * Makes an okhttp3 POST call using JSON content type
