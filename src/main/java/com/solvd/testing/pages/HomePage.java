@@ -7,10 +7,5 @@ public class HomePage extends BasePage{
     public HomePage(WebDriver driver) {
         super(driver);
     }
-    private By dropdown = By.xpath("//a[@href='#']/i");
 
-    public DropdownPage clickOnDropdownLink() {
-       driver.findElement(dropdown).click();
-        return new DropdownPage(driver);
-    }
 }

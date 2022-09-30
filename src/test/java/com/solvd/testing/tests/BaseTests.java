@@ -36,7 +36,7 @@ public  class BaseTests {
         System.setProperty("webdriver.chrome.driver", "rcs/chromedriver-mac105");
 
         driver = new ChromeDriver(new ChromeOptions());
-        driver.get("https://pearnft.herokuapp.com");
+        driver.get("https://zebrunner.com/documentation/");
         homePage = new HomePage(driver);
     }
 
