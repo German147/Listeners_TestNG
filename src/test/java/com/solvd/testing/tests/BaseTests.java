@@ -33,10 +33,11 @@ public  class BaseTests {
     public void setUp() throws MalformedURLException {
         LOGGER.info("Opening remote driver");
         ChromeOptions chromeOptions = new ChromeOptions();
-        System.setProperty("webdriver.chrome.driver", "rcs/chromedriver-mac105");
+        System.setProperty("webdriver.chrome.driver", "rcs/chromedriver-mac");
 
         driver = new ChromeDriver(new ChromeOptions());
-        driver.get("https://zebrunner.com/documentation/");
+        driver.manage().window().fullscreen();
+        driver.get("https://zebrunner.com/documentation/integrations/");
         homePage = new HomePage(driver);
     }
 

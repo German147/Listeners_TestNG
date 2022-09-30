@@ -8,4 +8,9 @@ public class HomePage extends BasePage{
         super(driver);
     }
 
+    private By introductionLink = By.xpath("//a [contains(.,'Introduction')] ");
+    public IntroductionPage clickOnIntroductionLink(){
+        driver.findElement(introductionLink).click();
+        return new IntroductionPage(driver);
+    }
 }
