@@ -7,11 +7,11 @@ import java.util.Properties;
 
 public class ConfigPropertiesHelper {
 
-    private static final String PROP_FILE_NAME = "src/main/resources/config.properties";
+    private static final String PROP_FILE_NAME = "src/main/resources/agent.properties";
 
     public static String getProperty(String propertyKey) {
 
-        FileReader reader= null;
+        FileReader reader = null;
         Properties p = new Properties();
         try {
             reader = new FileReader(PROP_FILE_NAME);
@@ -24,6 +24,10 @@ public class ConfigPropertiesHelper {
             throw new RuntimeException(e);
         }
         return p.getProperty(propertyKey);
+    }
+
+    public static void writeProperty(String property, String value) {
+
     }
 
 }

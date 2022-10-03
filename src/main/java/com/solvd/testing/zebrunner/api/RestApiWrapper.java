@@ -23,7 +23,7 @@ public class RestApiWrapper {
      * @param json The JSON payload as String
      * @return Response The REST API call okhttp3 Response object
     */
-    private static Response postJson(String url, String json) throws IOException {
+    public static Response postJson(String url, String json) throws IOException {
         RequestBody body = RequestBody.create(json, JSON); // new
         Request request = new Request.Builder()
                 .url(url)
@@ -40,7 +40,7 @@ public class RestApiWrapper {
     public static String getAuthToken (){
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("refreshToken", ConfigPropertiesHelper.getProperty("access_token"));
-        Path url = Paths.get( ConfigPropertiesHelper.getProperty("api_url"),
+        Path url = Paths.get("https://"+ConfigPropertiesHelper.getProperty("reporting.server.hostname"),
                 ConfigPropertiesHelper.getProperty("auth_endpoint"));
         try {
             Response resp = postJson(url.toString(), jsonObject.toString());
