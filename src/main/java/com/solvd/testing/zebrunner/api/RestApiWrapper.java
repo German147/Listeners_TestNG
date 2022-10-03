@@ -4,7 +4,6 @@ package com.solvd.testing.zebrunner.api;
 import com.solvd.testing.helper.ConfigPropertiesHelper;
 import okhttp3.*;
 import org.json.JSONObject;
-
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -19,8 +18,7 @@ public class RestApiWrapper {
 
     /**
      * Makes an okhttp3 POST call using JSON content type
-     *
-     * @param url  The full REST API endpoint url
+     * @param url The full REST API endpoint url
      * @param json The JSON payload as String
      * @return Response The REST API call okhttp3 Response object
      */
@@ -37,7 +35,6 @@ public class RestApiWrapper {
 
     /**
      * Exchanges the access token for a new or current auth token for using with subsequent Zebrunner API Calls
-     *
      * @return String The exchanged authToken
      */
     public static String getAuthToken() {
