@@ -17,6 +17,7 @@ public class ZebrunnerListener implements ITestListener {
     public void onTestSuccess(ITestResult result) {
         System.out.println("ZebrunnerListener >> onTestSuccess ::" + result.getMethod()
                 .getMethodName());
+        System.out.println(result.getEndMillis());
     }
 
 

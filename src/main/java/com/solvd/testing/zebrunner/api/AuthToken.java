@@ -1,10 +1,4 @@
 package com.solvd.testing.zebrunner.api;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Properties;
 
 /*
 This class is implemented as a singleton, since we only need one instance of the token for each and every
