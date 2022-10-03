@@ -3,6 +3,8 @@ package com.solvd.testing.zebrunner.api;
 
 import com.solvd.testing.helper.ConfigPropertiesHelper;
 import okhttp3.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -13,7 +15,7 @@ import java.nio.file.Paths;
  */
 public class RestApiWrapper {
     private static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-    private static String apiUrl = "https://" + ConfigPropertiesHelper.getProperty("reporting.server.hostname");
+    private final static Logger LOGGER = LogManager.getLogger(RestApiWrapper.class);
     private static OkHttpClient client = new OkHttpClient();
 
     /**
@@ -40,7 +42,7 @@ public class RestApiWrapper {
     public static String getAuthToken() {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("refreshToken", ConfigPropertiesHelper.getProperty("access_token"));
-        Path url = Paths.get(apiUrl, ConfigPropertiesHelper.getProperty("auth_endpoint"));
+        Path url = Paths.get(ConfigPropertiesHelper.getProperty("api_url"), ConfigPropertiesHelper.getProperty("auth_endpoint"));
         try {
             Response resp = postJson(url.toString(), jsonObject.toString(), "");
             if (resp.code() == 200) {
@@ -50,6 +52,16 @@ public class RestApiWrapper {
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public static Response callApi(String endPoint, String jsonString){
+        try {
+            Response response = RestApiWrapper.postJson(ConfigPropertiesHelper.getProperty("api_url") + endPoint, jsonString, AuthToken.getInstance().getAuthToken());
+            return response;
+        } catch (IOException e) {
+            LOGGER.error(e);
+            return null;
         }
     }
 }

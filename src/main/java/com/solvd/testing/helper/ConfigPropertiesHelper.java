@@ -12,7 +12,7 @@ import java.util.Properties;
 public class ConfigPropertiesHelper {
     public static final Logger LOGGER = LogManager.getLogger(ConfigPropertiesHelper.class);
 
-    private static final String PROP_FILE_NAME = "agent.properties";
+    private static final String PROP_FILE_NAME = "src/main/resources/config.properties";
 
     private static Properties properties = new Properties();
     private static ClassLoader loader = Thread.currentThread().getContextClassLoader();
