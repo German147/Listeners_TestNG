@@ -28,7 +28,7 @@ public class Test3 {
     }
 
     @Test
-    public void f0(){
+    public void Test0(){
         Assert.assertTrue(true);
     }
 
@@ -51,4 +51,5 @@ public class Test3 {
     public void f4(){
         Assert.assertTrue(true);
     }
+
 }
