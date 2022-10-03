@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="Suite TestZebrunnerListener">
-    <test thread-count="5" name="TestZebrunnerListener">
-        <classes>
-            <class name="com.solvd.testing.tests.TestZebrunnerListener"/>
-        </classes>
-    </test> <!-- Test1.java -->
-</suite> <!-- SuiteClass.java -->
