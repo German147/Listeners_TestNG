@@ -7,7 +7,6 @@ import com.solvd.testing.zebrunner.api.RestApiWrapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.*;
-import org.testng.reporters.IReporterConfig;
 import org.testng.xml.XmlSuite;
 
 import java.io.IOException;
@@ -20,11 +19,13 @@ import java.util.Map;
 public class ZebrunnerListener implements ITestListener, IReporter {
     public static final Logger LOGGER = LogManager.getLogger(ZebrunnerListener.class);
     public static final String TEST_NG = "TestNG";
+    private static String apiUrl = "https://" + ConfigPropertiesHelper.getProperty("reporting.server.hostname");
     private ObjectMapper objectMapper = new ObjectMapper();
     private Map<String, String> onTestStartParameters = new HashMap<>();
     private Map<String, String> onStartParameters = new HashMap<>();
     private Map<String, String> onFinishParameters = new HashMap<>();
     private TestResultStatus result;
+
     public ZebrunnerListener() {
     }
 
@@ -67,12 +68,13 @@ public class ZebrunnerListener implements ITestListener, IReporter {
 
     @Override
     public void onTestStart(ITestResult result) {
+        //Primera llamada
         ITestListener.super.onTestStart(result);
         onTestStartParameters = Map.of("name", result.getName(), "startedAt", getCurrentTime(), "framework", TEST_NG);
         try {
-            RestApiWrapper.postJson(ConfigPropertiesHelper.getProperty("api_url"), testReportData(getOnTestStartParameters()));
+            RestApiWrapper.postJson(apiUrl, testReportData(getOnTestStartParameters()), "");
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            LOGGER.error(e);
         }
     }
 
@@ -109,12 +111,19 @@ public class ZebrunnerListener implements ITestListener, IReporter {
 
     @Override
     public void generateReport(List<XmlSuite> xmlSuites, List<ISuite> suites, String outputDirectory) {
-        IReporter.super.generateReport(xmlSuites, suites, outputDirectory);
-    }
-
-    @Override
-    public IReporterConfig getConfig() {
-        return IReporter.super.getConfig();
+        for (ISuite suite : suites) {
+            String suiteName = suite.getName();
+            Map<String, ISuiteResult> suiteResult = suite.getResults();
+            for (ISuiteResult iSuiteResult : suiteResult.values()) {
+                ITestContext context = iSuiteResult.getTestContext();
+                System.out.println("Capture all passed Test results: " + suiteName + "No. of Test Cases: " +
+                        context.getPassedTests().getAllResults().size());
+                System.out.println("Capture all failed Test results: " + suiteName + "No. of Test Cases: " +
+                        context.getFailedTests().getAllResults().size());
+                System.out.println("Capture all skipped Test results: " + suiteName + "No. of Test Cases: " +
+                        context.getSkippedTests().getAllResults().size());
+            }
+        }
     }
 
     public enum TestResultStatus {
