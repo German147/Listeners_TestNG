@@ -35,6 +35,27 @@ public class RestApiWrapper {
         return response;
     }
 
+    public static Response putJson(String url, String json, String header) throws IOException {
+        RequestBody body = RequestBody.create(json, JSON); // new
+        Request request = new Request.Builder()
+                .url(url)
+                .header("Authorization", "Bearer " + header)
+                .put(body)
+                .build();
+        Response response = client.newCall(request).execute();
+        return response;
+    }
+
+    public static Response callPutApi(String endPoint, String jsonString){
+        try {
+            Response response = RestApiWrapper.putJson(ConfigPropertiesHelper.getProperty("api_url") + endPoint, jsonString, AuthToken.getInstance().getAuthToken());
+            return response;
+        } catch (IOException e) {
+            LOGGER.error(e);
+            return null;
+        }
+    }
+
     /**
      * Exchanges the access token for a new or current auth token for using with subsequent Zebrunner API Calls
      * @return String The exchanged authToken
@@ -55,7 +76,7 @@ public class RestApiWrapper {
         }
     }
 
-    public static Response callApi(String endPoint, String jsonString){
+    public static Response callPostApi(String endPoint, String jsonString){
         try {
             Response response = RestApiWrapper.postJson(ConfigPropertiesHelper.getProperty("api_url") + endPoint, jsonString, AuthToken.getInstance().getAuthToken());
             return response;

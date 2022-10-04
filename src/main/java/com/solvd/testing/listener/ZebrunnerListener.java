@@ -1,10 +1,9 @@
 package com.solvd.testing.listener;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.solvd.testing.helper.ConfigPropertiesHelper;
 import com.solvd.testing.helper.DateFormatting;
-import com.solvd.testing.zebrunner.api.AuthToken;
+import com.solvd.testing.helper.JsonFormatter;
 import com.solvd.testing.zebrunner.api.RestApiWrapper;
 import okhttp3.Response;
 import org.apache.logging.log4j.LogManager;
@@ -14,8 +13,6 @@ import org.testng.*;
 import org.testng.xml.XmlSuite;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,26 +24,25 @@ public class ZebrunnerListener implements ITestListener, IReporter {
     private ObjectMapper objectMapper = new ObjectMapper();
     private Map<String, String> onTestStartParameters = new HashMap<>();
     private Map<String, String> onStartParameters = new HashMap<>();
-    private Map<String, String> onFinishParameters = new HashMap<>();
     private int testRunId;
     private int specificTestId;
-    private TestResultStatus result;
+    private TestResultStatus testResult;
 
     public ZebrunnerListener() {
     }
 
-    private String testReport(Map<String, String> testParameters) throws JsonProcessingException {
-        return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(testParameters);
-    }
-
-    public String testReportData(Map<String, String> testParameters) {
-        try {
-            return testReport(testParameters);
-        } catch (JsonProcessingException e) {
-            LOGGER.error(e);
-        }
-        return null;
-    }
+//    private String testReport(Map<String, String> testParameters) throws JsonProcessingException {
+//        return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(testParameters);
+//    }
+//
+//    public String testReportData(Map<String, String> testParameters) {
+//        try {
+//            return testReport(testParameters);
+//        } catch (JsonProcessingException e) {
+//            LOGGER.error(e);
+//        }
+//        return null;
+//    }
 
     @Override
     public void onTestStart(ITestResult result) {
@@ -60,7 +56,7 @@ public class ZebrunnerListener implements ITestListener, IReporter {
         //Api CALL: Test execution start
         //Endpoint: POST /api/reporting/v1/test-runs/{testRunId}/tests
         //Mandatory fields: name, className, methodName, startedAt
-        Response response = RestApiWrapper.callApi(endPoint, testReportData(onTestStartParameters));
+        Response response = RestApiWrapper.callPostApi(endPoint, JsonFormatter.testDataJsonString(onTestStartParameters));
         System.out.println("onTestStart: " + response);
 
         try {
@@ -81,16 +77,17 @@ public class ZebrunnerListener implements ITestListener, IReporter {
     public void onTestSuccess(ITestResult result) {
         ITestListener.super.onTestSuccess(result);
         String endPoint = "/reporting/v1/test-runs/" + String.valueOf(testRunId)+ "/tests/" + String.valueOf(specificTestId);
-        this.result = TestResultStatus.SUCCESS;
-        onFinishParameters = Map.of("result", this.result.name(), "endedAt", DateFormatting.getCurrentTime(), "name", result.getName(), "startedAt", DateFormatting.getCurrentTime(), "framework", TEST_NG, "className", result.getClass().getName(), "methodName", result.getMethod().getMethodName());
-        Response response = RestApiWrapper.callApi(endPoint, testReportData(onFinishParameters));
-        System.out.println("on test success: " + response);
-        try {
-            JSONObject showResponse = new JSONObject(response.body().string());
-            System.out.println(showResponse);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        testResult = TestResultStatus.SUCCESS;
+        onTestFinish(testResult, result);
+//        onFinishParameters = Map.of("result", this.testResult.name(), "endedAt", DateFormatting.getCurrentTime(), "name", result.getName(), "startedAt", DateFormatting.getCurrentTime(), "framework", TEST_NG, "className", result.getClass().getName(), "methodName", result.getMethod().getMethodName());
+//        Response response = RestApiWrapper.callApi(endPoint, JsonFormatter.testDataJsonString(onFinishParameters));
+//        System.out.println("on test success: " + response);
+//        try {
+//            JSONObject showResponse = new JSONObject(response.body().string());
+//            System.out.println(showResponse);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
 
         //Api CALL: Test execution finish
         //Mandatory fields: result, endedAt
@@ -101,16 +98,17 @@ public class ZebrunnerListener implements ITestListener, IReporter {
     public void onTestFailure(ITestResult result) {
         ITestListener.super.onTestFailure(result);
         String endPoint = "/reporting/v1/test-runs/" + String.valueOf(testRunId)+ "/tests/" + String.valueOf(specificTestId);
-        this.result = TestResultStatus.FAILED;
-        onFinishParameters = Map.of("result", this.result.name(), "endedAt", DateFormatting.getCurrentTime(), "name", result.getName(), "startedAt", DateFormatting.getCurrentTime(), "framework", TEST_NG, "className", result.getClass().getName(), "methodName", result.getMethod().getMethodName());
-        Response response = RestApiWrapper.callApi(endPoint, testReportData(onFinishParameters));
-        System.out.println("on test fail: " + response);
-        try {
-            JSONObject showResponse = new JSONObject(response.body().string());
-            System.out.println(showResponse);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        testResult = TestResultStatus.FAILED;
+        onTestFinish(testResult, result);
+//        onFinishParameters = Map.of("result", this.testResult.name(), "endedAt", DateFormatting.getCurrentTime(), "name", result.getName(), "startedAt", DateFormatting.getCurrentTime(), "framework", TEST_NG, "className", result.getClass().getName(), "methodName", result.getMethod().getMethodName());
+//        Response response = RestApiWrapper.callApi(endPoint, JsonFormatter.testDataJsonString(onFinishParameters));
+//        System.out.println("on test fail: " + response);
+//        try {
+//            JSONObject showResponse = new JSONObject(response.body().string());
+//            System.out.println(showResponse);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
 
         //Api CALL: Test execution finish
         //Mandatory fields: result, endedAt
@@ -120,17 +118,18 @@ public class ZebrunnerListener implements ITestListener, IReporter {
     @Override
     public void onTestSkipped(ITestResult result) {
         ITestListener.super.onTestSkipped(result);
-        String endPoint = "/reporting/v1/test-runs/" + String.valueOf(testRunId)+ "/tests/" + String.valueOf(specificTestId);
-        this.result = TestResultStatus.SKIPPED;
-        onFinishParameters = Map.of("result", this.result.name(), "endedAt", DateFormatting.getCurrentTime(), "name", result.getName(), "startedAt", DateFormatting.getCurrentTime(), "framework", TEST_NG, "className", result.getClass().getName(), "methodName", result.getMethod().getMethodName());
-        Response response = RestApiWrapper.callApi(endPoint, testReportData(onFinishParameters));
-        System.out.println("on test skipped: " + response);
-        try {
-            JSONObject showResponse = new JSONObject(response.body().string());
-            System.out.println(showResponse);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        testResult = TestResultStatus.SKIPPED;
+        onTestFinish(testResult, result);
+//        String endPoint = "/reporting/v1/test-runs/" + String.valueOf(testRunId)+ "/tests/" + String.valueOf(specificTestId);
+//        onFinishParameters = Map.of("result", testResult.name(), "endedAt", DateFormatting.getCurrentTime(), "name", result.getName(), "startedAt", DateFormatting.getCurrentTime(), "framework", TEST_NG, "className", result.getClass().getName(), "methodName", result.getMethod().getMethodName());
+//        Response response = RestApiWrapper.callApi(endPoint, testReportData(onFinishParameters));
+//        System.out.println("on test skipped: " + response);
+//        try {
+//            JSONObject showResponse = new JSONObject(response.body().string());
+//            System.out.println(showResponse);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
 
         //Api CALL: Test execution finish
         //Mandatory fields: result, endedAt
@@ -142,8 +141,7 @@ public class ZebrunnerListener implements ITestListener, IReporter {
         ITestListener.super.onStart(context);
         String endPoint = "/reporting/v1/test-runs?projectKey=BETA";
         onTestStartParameters = Map.of("name", context.getName(), "startedAt", DateFormatting.getCurrentTime(), "framework", TEST_NG);
-
-        Response response = RestApiWrapper.callApi(endPoint, testReportData(onTestStartParameters));
+        Response response = RestApiWrapper.callPostApi(endPoint, JsonFormatter.testDataJsonString(onTestStartParameters));
         System.out.println("onStart: " + response);
         try {
             JSONObject asdtestRunId = new JSONObject(response.body().string());
@@ -161,8 +159,12 @@ public class ZebrunnerListener implements ITestListener, IReporter {
 
     @Override
     public void onFinish(ITestContext context) {
+        String endPoint = "/reporting/v1/test-runs/" + String.valueOf(testRunId);
+        Map<String, String> onFinishParameters = new HashMap<>();
         ITestListener.super.onFinish(context);
-        onFinishParameters = Map.of("result", this.result.name(), "endedAt", DateFormatting.getCurrentTime());
+        onFinishParameters = Map.of("result", testResult.name(), "endedAt", DateFormatting.getCurrentTime());
+        Response response = RestApiWrapper.callPutApi(endPoint, JsonFormatter.testDataJsonString(onFinishParameters));
+        System.out.println("on Finish:" + response);
 
         //Api CALL: Test run execution finish
         //Mandatory fields: endedAt
@@ -186,7 +188,21 @@ public class ZebrunnerListener implements ITestListener, IReporter {
         }
     }
 
-    public enum TestResultStatus {
+    private void onTestFinish(TestResultStatus testResultStatus, ITestResult result){
+        Map<String, String> onTestFinishParameters = new HashMap<>();
+        String onFinishEndPoint = "/reporting/v1/test-runs/" + String.valueOf(testRunId)+ "/tests/" + String.valueOf(specificTestId);
+        onTestFinishParameters = Map.of("result", testResult.name(), "endedAt", DateFormatting.getCurrentTime(), "name", result.getName(), "startedAt", DateFormatting.getCurrentTime(), "framework", TEST_NG, "className", result.getClass().getName(), "methodName", result.getMethod().getMethodName());
+        Response response = RestApiWrapper.callPostApi(onFinishEndPoint, JsonFormatter.testDataJsonString(onTestFinishParameters));
+//        System.out.println("on test skipped: " + response);
+        try {
+            JSONObject showResponse = new JSONObject(response.body().string());
+//            System.out.println(showResponse);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private enum TestResultStatus {
         SUCCESS, FAILED, SKIPPED;
     }
 }
