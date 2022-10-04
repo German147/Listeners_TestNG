@@ -12,6 +12,7 @@ import java.util.Map;
 public class JsonFormatter {
     public static final Logger LOGGER = LogManager.getLogger(ZebrunnerListener.class);
     private static ObjectMapper objectMapper = new ObjectMapper();
+
     private static String testReport(Map<String, String> testParameters) throws JsonProcessingException {
         return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(testParameters);
     }

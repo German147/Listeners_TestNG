@@ -2,7 +2,7 @@ package com.solvd.testing.pages;
 
 import org.openqa.selenium.WebDriver;
 
-public  abstract class BasePage {
+public abstract class BasePage {
 
     protected final WebDriver driver;
 

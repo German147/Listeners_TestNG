@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 public class Test2 {
     @Test
     public void successTestTwo() {
-        System.out.println("Im a test in run 3");
+        LOGGER.info("Im a test in run 3");
         Assert.assertEquals(3, 3);
     }
 }

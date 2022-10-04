@@ -19,7 +19,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 
-public  class BaseTests {
+public class BaseTests {
 
     private static final Logger LOGGER = LogManager.getLogger(BaseTests.class);
 

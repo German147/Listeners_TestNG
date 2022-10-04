@@ -30,12 +30,12 @@ public class TestZebrunnerListener {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        System.out.println("Out of time method");
+        LOGGER.info("Out of time method");
     }
 
     @Test(dependsOnMethods = "failOutOfTimeTest")
     public void testForSkip() {
-        System.out.println("I am the Skipped method");
+        LOGGER.info("I am the Skipped method");
     }
 
 }

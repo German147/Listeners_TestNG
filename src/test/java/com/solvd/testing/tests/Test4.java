@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 public class Test4 {
 
     @Test
-    public void successTest(){
-        System.out.println("This is a succesfully test");
+    public void successTest() {
+        LOGGER.info("This is a succesfully test");
     }
 }

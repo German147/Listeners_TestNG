@@ -16,12 +16,12 @@ public class Test1 {
     @Test
     public void successTest() {
         LOGGER.info("I am form logger");
-        System.out.println("im the first test");
+        LOGGER.info("im the first test");
     }
 
     @Test
     public void failTest() {
-        System.out.println("im the second test");
+        LOGGER.info("im the second test");
         Assert.fail();
     }
 

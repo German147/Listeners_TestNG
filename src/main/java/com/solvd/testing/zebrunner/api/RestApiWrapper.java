@@ -6,6 +6,7 @@ import okhttp3.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -21,7 +22,8 @@ public class RestApiWrapper {
 
     /**
      * Makes an okhttp3 POST call using JSON content type
-     * @param url The full REST API endpoint url
+     *
+     * @param url  The full REST API endpoint url
      * @param json The JSON payload as String
      * @return Response The REST API call okhttp3 Response object
      */
@@ -47,7 +49,7 @@ public class RestApiWrapper {
         return response;
     }
 
-    public static Response callPutApi(String endPoint, String jsonString){
+    public static Response callPutApi(String endPoint, String jsonString) {
         try {
             Response response = RestApiWrapper.putJson(ConfigPropertiesHelper.getProperty("api_url") + endPoint, jsonString, AuthToken.getInstance().getAuthToken());
             return response;
@@ -59,6 +61,7 @@ public class RestApiWrapper {
 
     /**
      * Exchanges the access token for a new or current auth token for using with subsequent Zebrunner API Calls
+     *
      * @return String The exchanged authToken
      */
     public static String getAuthToken() {
@@ -77,7 +80,7 @@ public class RestApiWrapper {
         }
     }
 
-    public static Response callPostApi(String endPoint, String jsonString){
+    public static Response callPostApi(String endPoint, String jsonString) {
         try {
             Response response = RestApiWrapper.postJson(ConfigPropertiesHelper.getProperty("api_url") + endPoint, jsonString, AuthToken.getInstance().getAuthToken());
             return response;

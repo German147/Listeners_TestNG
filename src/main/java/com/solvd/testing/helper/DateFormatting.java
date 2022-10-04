@@ -2,6 +2,7 @@ package com.solvd.testing.helper;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 public class DateFormatting {
     public static String getCurrentTime() {
         Date date = new Date(System.currentTimeMillis());

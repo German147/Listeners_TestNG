@@ -15,6 +15,7 @@ public class ConfigPropertiesHelper {
     private static Properties properties = new Properties();
     private static ClassLoader loader = Thread.currentThread().getContextClassLoader();
     private static InputStream inputStream = loader.getResourceAsStream(PROP_FILE_NAME);
+
     public static String getProperty(String propertyKey) {
 
         FileReader reader = null;

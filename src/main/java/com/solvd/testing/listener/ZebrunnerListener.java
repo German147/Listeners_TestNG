@@ -27,6 +27,7 @@ public class ZebrunnerListener implements ITestListener, IReporter {
     private int testRunId;
     private int specificTestId;
     private TestResultStatus testResult;
+
     private void onTestFinish(TestResultStatus testResultStatus, ITestResult result) {
         String endPoint = "/reporting/v1/test-runs/" + String.valueOf(testRunId) + "/tests/" + String.valueOf(specificTestId);
         onTestFinishParameters = Map.of("result", testResultStatus.name(), "endedAt", DateFormatting.getCurrentTime(), "name", result.getName(), "startedAt", DateFormatting.getCurrentTime(), "framework", TEST_NG, "className", result.getClass().getName(), "methodName", result.getMethod().getMethodName());
@@ -34,14 +35,15 @@ public class ZebrunnerListener implements ITestListener, IReporter {
         //OUTPUT
         outputAux.toJson(onTestFinishParameters);
 
-//        System.out.println("on test skipped: " + response);
+//        LOGGER.info("on test skipped: " + response);
 //        try {
 //            JSONObject showResponse = new JSONObject(response.body().string());
-////            System.out.println(showResponse);
+////            LOGGER.info(showResponse);
 //        } catch (IOException e) {
 //            throw new RuntimeException(e);
 //        }
     }
+
     @Override
     public void onStart(ITestContext context) {
         //Api CALL: Test run start
@@ -51,19 +53,20 @@ public class ZebrunnerListener implements ITestListener, IReporter {
         String endPoint = "/reporting/v1/test-runs?projectKey=BETA";
         onStartParameters = Map.of("name", context.getName(), "startedAt", DateFormatting.getCurrentTime(), "framework", TEST_NG);
         Response response = RestApiWrapper.callPostApi(endPoint, JsonFormatter.testDataJsonString(onStartParameters));
-        //System.out.println("onStart: " + response);  Print response
+        //LOGGER.info("onStart: " + response);  Print response
 
         // OUTPUT
         outputAux.toJson(onStartParameters);
 
         try {
             JSONObject asdtestRunId = new JSONObject(response.body().string());
-            //  System.out.println("Test Run Id: " + asdtestRunId);
+            //  LOGGER.info("Test Run Id: " + asdtestRunId);
             testRunId = asdtestRunId.getInt("id");
         } catch (IOException e) {
             LOGGER.error(e);
         }
     }
+
     @Override
     public void onTestStart(ITestResult result) {
         //Api CALL: Test execution start
@@ -72,20 +75,20 @@ public class ZebrunnerListener implements ITestListener, IReporter {
 
         ITestListener.super.onTestStart(result);
         String endPoint = "/reporting/v1/test-runs/" + String.valueOf(testRunId) + "/tests";
-        // System.out.println("on test start endpoint: " + endPoint);
+        // LOGGER.info("on test start endpoint: " + endPoint);
         onTestStartParameters = Map.of("name", result.getName(), "startedAt", DateFormatting.getCurrentTime(), "framework", TEST_NG, "className", result.getClass().getName(), "methodName", result.getMethod().getMethodName());
 
         //OUTPUT
         outputAux.toJson(onTestStartParameters);
         Response response = RestApiWrapper.callPostApi(endPoint, JsonFormatter.testDataJsonString(onTestStartParameters));
-        //  System.out.println("onTestStart: " + response);   Visualizar response
+        //  LOGGER.info("onTestStart: " + response);   Visualizar response
 
         try {
             JSONObject auxResponse = new JSONObject(response.body().string());
             specificTestId = auxResponse.getInt("id");
-            // System.out.println("Specified testID: " + specificTestId);       Visualizar id de cada test
+            // LOGGER.info("Specified testID: " + specificTestId);       Visualizar id de cada test
             //String asdtestRunId = new JSONObject(response.body()).toString();     Visualizar el body de la response
-            //System.out.println("Test Run Id: " + asdtestRunId);                   Ver el test run ID
+            //LOGGER.info("Test Run Id: " + asdtestRunId);                   Ver el test run ID
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -122,6 +125,7 @@ public class ZebrunnerListener implements ITestListener, IReporter {
         testResult = TestResultStatus.SKIPPED;
         onTestFinish(testResult, result);
     }
+
     @Override
     public void onFinish(ITestContext context) {
         //Api CALL: Test run execution finish
@@ -133,7 +137,7 @@ public class ZebrunnerListener implements ITestListener, IReporter {
         Response response = RestApiWrapper.callPutApi(endPoint, JsonFormatter.testDataJsonString(onFinishParameters));
         //OUTPUT
         outputAux.toJson(onFinishParameters);
-        //System.out.println("on Finish:" + response);
+        //LOGGER.info("on Finish:" + response);
     }
 
     @Override
@@ -143,11 +147,11 @@ public class ZebrunnerListener implements ITestListener, IReporter {
             Map<String, ISuiteResult> suiteResult = suite.getResults();
             for (ISuiteResult iSuiteResult : suiteResult.values()) {
                 ITestContext context = iSuiteResult.getTestContext();
-                System.out.println("Capture all passed Test results: " + suiteName + "No. of Test Cases: " +
+                LOGGER.info("Capture all passed Test results: " + suiteName + "No. of Test Cases: " +
                         context.getPassedTests().getAllResults().size());
-                System.out.println("Capture all failed Test results: " + suiteName + "No. of Test Cases: " +
+                LOGGER.info("Capture all failed Test results: " + suiteName + "No. of Test Cases: " +
                         context.getFailedTests().getAllResults().size());
-                System.out.println("Capture all skipped Test results: " + suiteName + "No. of Test Cases: " +
+                LOGGER.info("Capture all skipped Test results: " + suiteName + "No. of Test Cases: " +
                         context.getSkippedTests().getAllResults().size());
             }
         }
