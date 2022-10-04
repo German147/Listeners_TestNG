@@ -10,3 +10,35 @@
 2022-09-30 13:20:06,160 INFO c.s.t.t.BaseTests [main] Opening remote driver
 2022-09-30 13:22:43,763 INFO c.s.t.t.BaseTests [main] Opening remote driver
 2022-09-30 13:23:14,312 INFO c.s.t.t.BaseTests [main] Opening remote driver
+2022-10-03 17:36:11,976 INFO c.s.t.t.Test1 [main] I am form logger
+2022-10-03 17:37:50,085 INFO c.s.t.t.Test1 [main] I am form logger
+2022-10-03 17:38:49,394 INFO c.s.t.t.Test1 [main] I am form logger
+2022-10-03 17:40:18,327 INFO c.s.t.t.Test1 [main] I am form logger
+2022-10-03 17:43:10,484 INFO c.s.t.t.Test1 [main] I am form logger
+2022-10-03 17:47:45,432 INFO c.s.t.t.Test1 [main] I am form logger
+2022-10-03 18:01:43,583 INFO c.s.t.t.Test1 [main] I am form logger
+2022-10-03 18:02:45,375 INFO c.s.t.t.Test1 [main] I am form logger
+2022-10-03 18:11:13,030 INFO c.s.t.t.Test1 [main] I am form logger
+2022-10-03 18:15:50,889 INFO c.s.t.t.Test1 [main] I am form logger
+2022-10-03 18:17:29,906 INFO c.s.t.t.Test1 [main] I am form logger
+2022-10-03 18:18:01,476 INFO c.s.t.t.Test1 [main] I am form logger
+2022-10-03 18:20:28,905 INFO c.s.t.t.Test1 [main] I am form logger
+2022-10-03 18:25:31,902 INFO c.s.t.t.Test1 [main] I am form logger
+2022-10-03 18:28:50,651 INFO c.s.t.t.Test1 [main] I am form logger
+2022-10-03 18:32:46,232 INFO c.s.t.t.Test1 [main] I am form logger
+2022-10-03 18:34:50,323 INFO c.s.t.t.Test1 [main] I am form logger
+2022-10-03 18:49:42,893 INFO c.s.t.t.Test1 [main] I am form logger
+2022-10-03 18:52:49,891 INFO c.s.t.t.Test1 [main] I am form logger
+2022-10-03 19:01:57,690 INFO c.s.t.t.Test1 [main] I am form logger
+2022-10-03 19:04:53,676 INFO c.s.t.t.Test1 [main] I am form logger
+2022-10-03 19:13:35,214 INFO c.s.t.t.Test1 [main] I am form logger
+2022-10-03 19:14:59,727 INFO c.s.t.t.Test1 [main] I am form logger
+2022-10-04 08:33:04,860 INFO c.s.t.t.Test1 [main] I am form logger
+2022-10-04 08:35:15,278 INFO c.s.t.t.Test1 [main] I am form logger
+2022-10-04 08:37:58,757 INFO c.s.t.t.Test1 [main] I am form logger
+2022-10-04 08:53:41,908 INFO c.s.t.t.Test1 [main] I am form logger
+2022-10-04 09:02:00,688 INFO c.s.t.t.Test1 [main] I am form logger
+2022-10-04 09:21:42,971 INFO c.s.t.t.Test1 [main] I am form logger
+2022-10-04 10:01:06,981 INFO c.s.t.t.Test1 [main] I am form logger
+2022-10-04 10:01:27,811 INFO c.s.t.t.Test1 [main] I am form logger
+2022-10-04 10:05:50,067 INFO c.s.t.t.Test1 [main] I am form logger

@@ -4,13 +4,12 @@ import com.solvd.testing.listener.ZebrunnerListener;
 import com.solvd.testing.pages.SidePanelPage;
 import com.solvd.testing.pages.ZebrunnerDeviceFarmPage;
 import com.solvd.testing.tests.BaseTests;
-import com.solvd.testing.tests.MyListener;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
 
-@Listeners({MyListener.class, ZebrunnerListener.class})
+@Listeners({ZebrunnerListener.class})
 public class ZebTest extends BaseTests {
 
     @Test
