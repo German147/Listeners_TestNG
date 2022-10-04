@@ -24,5 +24,9 @@ public class Test1 {
         LOGGER.info("im the second test");
         Assert.fail();
     }
+    @Test(dependsOnMethods = {"failTest"})
+    public void skippedTest(){
+        LOGGER.info("Im a skipped test");
+    }
 
 }

@@ -9,6 +9,6 @@ public class Test4 {
 
     @Test
     public void successTest() {
-        LOGGER.info("This is a succesfully test");
+        //LOGGER.info("This is a succesfully test");
     }
 }

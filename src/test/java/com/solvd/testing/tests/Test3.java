@@ -23,7 +23,7 @@ public class Test3 {
 
         driver.close();
 
-        LOGGER.info("This is the test function - Class Test Pack1");
+        //LOGGER.info("This is the test function - Class Test Pack1");
 
     }
 

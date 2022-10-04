@@ -1,6 +1,6 @@
 package listeners.suite;
 
-import com.solvd.testing.helper.DateTimeHandler;
+import com.solvd.testing.helper.DateFormatting;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.ISuite;
@@ -15,11 +15,11 @@ public class SuiteClass implements ISuiteListener {
     @Override
     public void onStart(ISuite suite) {
 
-        logger.info("this is on start method " + suite.getName() + " at: " + DateTimeHandler.getNow());
+        logger.info("this is on start method " + suite.getName() + " at: " + DateFormatting.getCurrentTime());
     }
 
     @Override
     public void onFinish(ISuite suite) {
-        logger.info("this is on finish method" + suite.getName() + " at: " + DateTimeHandler.getNow());
+        logger.info("this is on finish method" + suite.getName() + " at: " + DateFormatting.getCurrentTime());
     }
 }

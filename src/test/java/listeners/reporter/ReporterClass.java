@@ -14,7 +14,7 @@ import java.util.Map;
 
 public class ReporterClass implements IReporter {
 
-    private static final Logger logger = LoggerFactory.getLogger(ReporterClass.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ReporterClass.class);
 
     @Override
     public void generateReport(List<XmlSuite> xmlSuites, List<ISuite> suites, String outputDirectory) {
