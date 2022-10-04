@@ -32,6 +32,7 @@ public class TestZebrunnerListener {
         }
         System.out.println("Out of time method");
     }
+
     @Test(dependsOnMethods = "failOutOfTimeTest")
     public void testForSkip() {
         System.out.println("I am the Skipped method");
