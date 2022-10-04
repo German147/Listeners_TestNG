@@ -1,12 +1,15 @@
 package com.solvd.testing.tests;
 
 import com.solvd.testing.listener.ZebrunnerListener;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 @Listeners(ZebrunnerListener.class)
 public class TestZebrunnerListener {
+    private final static Logger LOGGER = LogManager.getLogger(TestZebrunnerListener.class);
     @Test
     public void examplePass() {
         Assert.assertEquals("", "");
@@ -30,12 +33,11 @@ public class TestZebrunnerListener {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        //LOGGER.info("Out of time method");
+        LOGGER.info("Out of time method");
     }
-
     @Test(dependsOnMethods = "failOutOfTimeTest")
     public void testForSkip() {
-        //LOGGER.info("I am the Skipped method");
+        LOGGER.info("I am the Skipped method");
     }
 
 }
