@@ -166,7 +166,7 @@ public class ZebrunnerListener implements ITestListener, IReporter {
 
         //Api CALL: Test run execution finish
         //Mandatory fields: endedAt
-        //Endpoint: PUT /api/reporting/v1/test-runs/{id(uuid)}
+        //Endpoint: PUT /api/reporting/v1/test-runs/{id}
     }
 
     @Override
