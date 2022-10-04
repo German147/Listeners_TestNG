@@ -71,3 +71,15 @@
 2022-10-04 11:55:10,504 INFO c.s.t.l.ZebrunnerListener [main] Capture all passed Test results: Default SuiteNo. of Test Cases: 1
 2022-10-04 11:55:10,504 INFO c.s.t.l.ZebrunnerListener [main] Capture all failed Test results: Default SuiteNo. of Test Cases: 1
 2022-10-04 11:55:10,505 INFO c.s.t.l.ZebrunnerListener [main] Capture all skipped Test results: Default SuiteNo. of Test Cases: 0
+2022-10-04 13:43:42,084 INFO c.s.t.t.Test1 [main] im the second test
+2022-10-04 13:43:42,812 INFO c.s.t.t.Test1 [main] I am form logger
+2022-10-04 13:43:42,812 INFO c.s.t.t.Test1 [main] im the first test
+2022-10-04 13:43:44,554 INFO c.s.t.l.ZebrunnerListener [main] Capture all passed Test results: Default SuiteNo. of Test Cases: 1
+2022-10-04 13:43:44,577 INFO c.s.t.l.ZebrunnerListener [main] Capture all failed Test results: Default SuiteNo. of Test Cases: 1
+2022-10-04 13:43:44,584 INFO c.s.t.l.ZebrunnerListener [main] Capture all skipped Test results: Default SuiteNo. of Test Cases: 1
+2022-10-04 13:45:48,215 INFO c.s.t.t.Test1 [main] im the second test
+2022-10-04 13:45:48,904 INFO c.s.t.t.Test1 [main] I am form logger
+2022-10-04 13:45:48,905 INFO c.s.t.t.Test1 [main] im the first test
+2022-10-04 13:45:50,356 INFO c.s.t.l.ZebrunnerListener [main] Capture all passed Test results: Default SuiteNo. of Test Cases: 1
+2022-10-04 13:45:50,356 INFO c.s.t.l.ZebrunnerListener [main] Capture all failed Test results: Default SuiteNo. of Test Cases: 1
+2022-10-04 13:45:50,356 INFO c.s.t.l.ZebrunnerListener [main] Capture all skipped Test results: Default SuiteNo. of Test Cases: 1

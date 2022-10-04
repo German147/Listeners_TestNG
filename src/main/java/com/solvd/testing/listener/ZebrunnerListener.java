@@ -58,7 +58,7 @@ public class ZebrunnerListener implements ITestListener, IReporter {
         //Api CALL: Test execution finish
         //Mandatory fields: result, endedAt
         //Endpoint: PUT /api/reporting/v1/test-runs/{testRunId}/tests/{testId(id)}
-        testResult = TestResultStatus.SUCCESS;
+        testResult = TestResultStatus.PASSED;
         onTestFinish(testResult, result);
     }
 
@@ -106,6 +106,6 @@ public class ZebrunnerListener implements ITestListener, IReporter {
     }
 
     private enum TestResultStatus {
-        SUCCESS, FAILED, SKIPPED;
+        PASSED, FAILED, SKIPPED;
     }
 }
