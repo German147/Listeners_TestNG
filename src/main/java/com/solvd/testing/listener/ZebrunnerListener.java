@@ -27,6 +27,21 @@ public class ZebrunnerListener implements ITestListener, IReporter {
     private int testRunId;
     private int specificTestId;
     private TestResultStatus testResult;
+    private void onTestFinish(TestResultStatus testResultStatus, ITestResult result) {
+        String endPoint = "/reporting/v1/test-runs/" + String.valueOf(testRunId) + "/tests/" + String.valueOf(specificTestId);
+        onTestFinishParameters = Map.of("result", testResultStatus.name(), "endedAt", DateFormatting.getCurrentTime(), "name", result.getName(), "startedAt", DateFormatting.getCurrentTime(), "framework", TEST_NG, "className", result.getClass().getName(), "methodName", result.getMethod().getMethodName());
+        Response response = RestApiWrapper.callPostApi(endPoint, JsonFormatter.testDataJsonString(onTestFinishParameters));
+        //OUTPUT
+        outputAux.toJson(onTestFinishParameters);
+
+//        System.out.println("on test skipped: " + response);
+//        try {
+//            JSONObject showResponse = new JSONObject(response.body().string());
+////            System.out.println(showResponse);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+    }
     @Override
     public void onStart(ITestContext context) {
         //Api CALL: Test run start
@@ -136,22 +151,6 @@ public class ZebrunnerListener implements ITestListener, IReporter {
                         context.getSkippedTests().getAllResults().size());
             }
         }
-    }
-
-    private void onTestFinish(TestResultStatus testResultStatus, ITestResult result) {
-        String endPoint = "/reporting/v1/test-runs/" + String.valueOf(testRunId) + "/tests/" + String.valueOf(specificTestId);
-        onTestFinishParameters = Map.of("result", testResultStatus.name(), "endedAt", DateFormatting.getCurrentTime(), "name", result.getName(), "startedAt", DateFormatting.getCurrentTime(), "framework", TEST_NG, "className", result.getClass().getName(), "methodName", result.getMethod().getMethodName());
-        Response response = RestApiWrapper.callPostApi(endPoint, JsonFormatter.testDataJsonString(onTestFinishParameters));
-        //OUTPUT
-        outputAux.toJson(onTestFinishParameters);
-
-//        System.out.println("on test skipped: " + response);
-//        try {
-//            JSONObject showResponse = new JSONObject(response.body().string());
-////            System.out.println(showResponse);
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
     }
 
     private enum TestResultStatus {

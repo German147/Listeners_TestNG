@@ -8,6 +8,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.Map;
 
+//Esta clase se va cuando se implemente el grupo A.
 public class JsonFormatter {
     public static final Logger LOGGER = LogManager.getLogger(ZebrunnerListener.class);
     private static ObjectMapper objectMapper = new ObjectMapper();

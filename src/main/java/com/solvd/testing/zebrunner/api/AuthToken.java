@@ -4,7 +4,7 @@ package com.solvd.testing.zebrunner.api;
 This class is implemented as a singleton, since we only need one instance of the token for each and every
 REST API call. The token is automagically refreshed once it expires, so no need of checking dates.
 */
-
+//Se va cuando se implemente lo del grupo A.
 public class AuthToken {
     private static AuthToken instance;
     private String authToken;

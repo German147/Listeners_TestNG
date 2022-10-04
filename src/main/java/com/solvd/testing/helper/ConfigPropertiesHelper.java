@@ -11,14 +11,10 @@ import java.util.Properties;
 
 public class ConfigPropertiesHelper {
     public static final Logger LOGGER = LogManager.getLogger(ConfigPropertiesHelper.class);
-
     private static final String PROP_FILE_NAME = "src/main/resources/config.properties";
-
     private static Properties properties = new Properties();
     private static ClassLoader loader = Thread.currentThread().getContextClassLoader();
     private static InputStream inputStream = loader.getResourceAsStream(PROP_FILE_NAME);
-
-
     public static String getProperty(String propertyKey) {
 
         FileReader reader = null;

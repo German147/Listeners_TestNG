@@ -13,6 +13,7 @@ import java.nio.file.Paths;
 /**
  * @author fgimeno
  */
+//Se va cuando se implemente lo del grupo A
 public class RestApiWrapper {
     private static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
     private final static Logger LOGGER = LogManager.getLogger(RestApiWrapper.class);
