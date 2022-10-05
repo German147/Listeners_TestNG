@@ -1,0 +1,13 @@
+reporting:
+  enabled: true
+  project-key: BETA
+  server:
+    hostname: https://solvdinternal.zebrunner.com
+    access-token: CxpCxFdJQH8aGiM3rUSeG9Krar8mejp3Hmm9lBtON5ySKMdVwh
+  run:
+    retry-known-issues: false
+    treat-skips-as-failures: false
+    test-case-status:
+      on-pass: passed
+      on-fail: failed
+      on-skip: retest

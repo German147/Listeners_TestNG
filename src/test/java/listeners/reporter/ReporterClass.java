@@ -14,32 +14,32 @@ import java.util.Map;
 
 public class ReporterClass implements IReporter {
 
-    private static final Logger logger = LoggerFactory.getLogger(ReporterClass.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ReporterClass.class);
+
     @Override
     public void generateReport(List<XmlSuite> xmlSuites, List<ISuite> suites, String outputDirectory) {
 
-        for (ISuite suite : suites){
+        for (ISuite suite : suites) {
 
             String suiteName = suite.getName();
 
             Map<String, ISuiteResult> suiteResult = suite.getResults();
 
-            for (ISuiteResult iSuiteResult : suiteResult.values()){
+            for (ISuiteResult iSuiteResult : suiteResult.values()) {
 
                 ITestContext context = iSuiteResult.getTestContext();
 
-                System.out.println("Capture all passed Test results: " + suiteName + "No. of Test Cases: "+
+                LOGGER.info("Capture all passed Test results: " + suiteName + "No. of Test Cases: " +
                         context.getPassedTests().getAllResults().size());
 
-                System.out.println("Capture all failed Test results: " + suiteName + "No. of Test Cases: "+
+                LOGGER.info("Capture all failed Test results: " + suiteName + "No. of Test Cases: " +
                         context.getFailedTests().getAllResults().size());
 
-                System.out.println("Capture all skipped Test results: " + suiteName + "No. of Test Cases: "+
+                LOGGER.info("Capture all skipped Test results: " + suiteName + "No. of Test Cases: " +
                         context.getSkippedTests().getAllResults().size());
 
 
             }
-
 
 
         }

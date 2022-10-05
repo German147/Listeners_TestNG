@@ -1,6 +1,8 @@
 package com.solvd.testing.tests;
 
 import listeners.reporter.ReporterClass;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
@@ -9,7 +11,7 @@ import org.testng.annotations.Test;
 
 @Listeners(ReporterClass.class)
 public class Test3 {
-
+    private final static Logger LOGGER = LogManager.getLogger(Test3.class);
     @Test
     public void simpleWebTest() {
 
@@ -23,32 +25,32 @@ public class Test3 {
 
         driver.close();
 
-        System.out.println("This is the test function - Class Test Pack1");
+        LOGGER.info("This is the test function - Class Test Pack1");
 
     }
 
     @Test
-    public void Test0(){
+    public void Test0() {
         Assert.assertTrue(true);
     }
 
     @Test
-    public void f1(){
+    public void f1() {
         Assert.assertTrue(false);
     }
 
     @Test
-    public void f2(){
+    public void f2() {
         Assert.assertTrue(true);
     }
 
     @Test
-    public void f3(){
+    public void f3() {
         Assert.assertTrue(false);
     }
 
     @Test(dependsOnMethods = "f1")
-    public void f4(){
+    public void f4() {
         Assert.assertTrue(true);
     }
 
