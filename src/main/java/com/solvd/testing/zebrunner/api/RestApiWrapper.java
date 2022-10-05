@@ -38,6 +38,18 @@ public class RestApiWrapper {
         return response;
     }
 
+    public static Response postScreenshot(String url, byte[] screenshotByte, String header) throws IOException {
+        RequestBody body = RequestBody.create(screenshotByte); // new
+        Request request = new Request.Builder()
+                .url(url)
+                .header("Authorization", "Bearer " + header)
+                .addHeader("Content-Type", "image/png")
+                .post(body)
+                .build();
+        Response response = client.newCall(request).execute();
+        return response;
+    }
+
     public static Response putJson(String url, String json, String header) throws IOException {
         RequestBody body = RequestBody.create(json, JSON); // new
         Request request = new Request.Builder()

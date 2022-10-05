@@ -5,6 +5,8 @@ import com.google.gson.JsonObject;
 import com.solvd.testing.api.ZebrunnerAPI;
 import com.solvd.testing.helper.DateFormatting;
 import com.solvd.testing.helper.JsonFormatter;
+import com.solvd.testing.helper.ScreenshotService;
+import com.solvd.testing.zebrunner.api.AuthToken;
 import com.solvd.testing.zebrunner.api.RestApiWrapper;
 import okhttp3.Response;
 import org.apache.logging.log4j.LogManager;
@@ -68,6 +70,13 @@ public class ZebrunnerListener implements ITestListener, IReporter {
         //Mandatory fields: result, endedAt
         //Endpoint: PUT /api/reporting/v1/test-runs/{testRunId}/tests/{testId(uuid)}
         testResult = TestResultStatus.FAILED;
+        //ver endpoints
+        try {
+            Response response = RestApiWrapper.postScreenshot("/api/reporting/v1/test-runs/795/tests/1485/screenshots", ScreenshotService.getScreenshot(), AuthToken.getInstance().getAuthToken());
+            System.out.println("response: " +response);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         onTestFinish(testResult, result);
     }
 
